@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Cypress JavaScript",
+    "repository": "cypress-javascript",
+    "description": "Browser test automation using Cypress and JavaScript.",
+    "technologies": ["Cypress", "JavaScript"]
+  },
+  {
+    "title": "JavaScript API Tests",
+    "repository": "js-jest-api",
+    "description": "API testing project using Jest and JavaScript.",
+    "technologies": ["Jest", "API testing", "JavaScript"]
+  },
+  {
+    "title": "Mocha & SuperTest API Tests",
+    "repository": "nodejs-mocha-supertest",
+    "description": "Node.js API testing project using Mocha and SuperTest.",
+    "technologies": ["Node.js", "Mocha", "SuperTest"]
+  },
+  {
+    "title": "Robot Framework Automation",
+    "repository": "python-robotframework",
+    "description": "Python test automation project using Robot Framework.",
+    "technologies": ["Python", "Robot Framework"]
+  },
+  {
+    "title": "SauceDemo UI Automation",
+    "repository": "taiko_saucedemo",
+    "description": "Browser UI automation project for the SauceDemo application.",
+    "technologies": ["Taiko", "UI testing"]
+  },
+  {
+    "title": "WebdriverIO with Cucumber",
+    "repository": "webdriverio-typescript-cucumber",
+    "description": "Browser automation project using WebdriverIO, TypeScript, and Cucumber.",
+    "technologies": ["WebdriverIO", "TypeScript", "Cucumber"]
+  }
+]
