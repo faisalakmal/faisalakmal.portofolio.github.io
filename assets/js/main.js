@@ -70,25 +70,45 @@ const sections = sectionLinks
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
 
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
-
-      sectionLinks.forEach((link) => {
-        const active = link.hash === `#${visible.target.id}`;
-        link.classList.toggle("is-active", active);
-        if (active) link.setAttribute("aria-current", "location");
-        else link.removeAttribute("aria-current");
-      });
-    },
-    { rootMargin: "-18% 0px -58% 0px", threshold: [0, 0.2, 0.5, 0.8] },
-  );
-
-  sections.forEach((section) => observer.observe(section));
+function setActiveSection(section) {
+  sectionLinks.forEach((link) => {
+    const active = link.hash === `#${section.id}`;
+    link.classList.toggle("is-active", active);
+    if (active) link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
 }
+
+function updateActiveSection() {
+  if (!sections.length) return;
+
+  // Keep the active menu item aligned with the section crossing this reading line.
+  const readingLine = window.innerHeight * 0.34;
+  const atPageEnd =
+    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  let activeSection = atPageEnd ? sections[sections.length - 1] : sections[0];
+
+  if (!atPageEnd) {
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top > readingLine) break;
+      activeSection = section;
+    }
+  }
+
+  setActiveSection(activeSection);
+}
+
+let scrollFrame = 0;
+function scheduleActiveSectionUpdate() {
+  if (scrollFrame) return;
+  scrollFrame = window.requestAnimationFrame(() => {
+    updateActiveSection();
+    scrollFrame = 0;
+  });
+}
+
+window.addEventListener("scroll", scheduleActiveSectionUpdate, { passive: true });
+window.addEventListener("resize", scheduleActiveSectionUpdate);
+updateActiveSection();
 
 loadProjects();
